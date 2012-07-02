@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<title>Yatter-Button</title>
+<script>
+chrome.self.onConnect.addListener(function(port){
+
+    port.onMessage.addListener(function(){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://yatter-button.masuihiroki.com/bridge/add_yatter", true);
+        xhr.setRequestHeader("Content-Type" , "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                port.postMessage();
+            }
+        }
+        xhr.send();
+    });
+});
+</script>
+</html>

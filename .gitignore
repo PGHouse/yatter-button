@@ -1,0 +1,8 @@
+# cache
+/app/tmp/cache/*
+
+# database.php
+/app/Config/database.php
+
+# console実行時のcache
+/lib/Cake/Console/Templates/skel/tmp/cache/*

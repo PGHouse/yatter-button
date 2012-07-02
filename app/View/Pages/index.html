@@ -1,0 +1,96 @@
+<script>
+$(function() {
+    function getNowTime() {
+        var date         = new Date();
+        var year         = date.getFullYear();
+        var virtualMonth = date.getMonth() + 1;
+        var month        = virtualMonth;
+        if (virtualMonth < 10) {
+            month        = '0' + virtualMonth;
+        }
+        var day          = date.getDate();
+        if (day < 10) {
+            day = '0' + day;
+        }
+        var hour = date.getHours();
+        if (hour < 10) {
+            hour = '0' + hour;
+        }
+        var min = date.getMinutes();
+        if (min < 10) {
+            min = '0' + min;
+        }
+        var sec = date.getSeconds();
+        if (sec < 10) {
+            sec = '0' + sec;
+        }
+        var nowTime = year + '-' + month + '-' + day  + ' ' + hour + ':' + min +  ':' + sec;
+        return nowTime;
+    }
+    var nowTime = getNowTime();
+
+    var margin              = 5;
+    var yatterLineHeight    = 55;
+    var yatterLineHeightSum = 0;
+
+    function ajaxPagination() {
+        $.ajax({
+            type: "POST",
+            url:  "bridge/select_yatter",
+            data: {
+                'nowTime': nowTime
+            },
+            success:function(data) {
+                $('.yatter-line').each(function(){
+                    yatterLineHeightSum += $(this).height() + margin;
+                });
+                <? // TODO できればajaxで取得してきたdata内の$('.yatter-line').height()総数が知りたい ?>
+                if (yatterLineHeightSum + (data.slice(30, 31) * yatterLineHeight) > $('.yatter-window').height()) {
+                    $('.yatter-window').html('<div class="replacement"></div>');
+                }
+                yatterLineHeightSum = 0;
+                if (data != '') {
+                    $('.replacement').replaceWith(data);
+                }
+            },
+            error:function() {
+                $('.yatter-window').html('<div class="replacement"></div><div class="yatter-line">データを取得することができませんでした</div>');
+            }
+        });
+        nowTime = getNowTime();
+        setTimeout(function() {
+            ajaxPagination();
+        }, 5000);
+    }
+    ajaxPagination();
+
+    $('.button').click(function() {
+        $('.submit-orange').hide();
+        $('.loading-area').show();
+    });
+});
+</script>
+<div class="elem center">
+    <p>昨日のヤッター!数：</p>
+    <p style="margin-bottom:15px;"><span class="emphaFont_blue"><?= h($yatterSum['YatterSum']['yatter_count']) ?>ヤッター!</span></p>
+    <p>今日のヤッター!数：</p>
+    <p style="margin-bottom:15px;"><span class="emphaFont_blue"><?= h($todayYatterCount) ?>ヤッター!</span></p>
+    <p>今日の目標ヤッター!数：</p>
+    <p><span class="emphaFont_blue"><?= h($yatterSum['YatterSum']['tomorrow_target']) ?>ヤッター!</span></p>
+</div>
+<div id="yatter-window" class="yatter-window">
+    <div class="replacement"></div>
+</div>
+<? if (empty($loginUser)) { ?>
+<div class="submit-orange center">
+    <a class="button" href="/fblogin">Facebookログイン</a>
+</div>
+<? } else { ?>
+<div class="submit-orange center">
+    <a class="button" href="/logout">ログアウト</a>
+</div>
+<? } ?>
+<div class="loading-area hide center">
+    <p class="loading">Loading…</p>
+    <div class="submit-loading"></div>
+</div>

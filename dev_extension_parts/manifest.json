@@ -1,0 +1,33 @@
+{
+    "name": "dev-Yatter-Button",
+    "version": "1.0",
+    "description": "If you want to share somthing your accomplishment, let's push the yatter-button!!",
+    "background_page": "background.html",
+    "browser_action": {
+        "default_icon": "yatter_icon_01.png",
+        "default_title":"dev-Yatter-Button!!",
+        "default_popup": "popup.html"
+    },
+    "permissions": ["tabs" ,"http://*/*", "https://*/*"],
+    "icons":{
+        "128":"yatter_icon_128_01.png",
+        "48": "yatter_icon_48_01.png"
+    },
+    "content_scripts": [
+        {
+            "js": [
+                "main.js"
+            ],
+            "css": [
+                "main.css"
+            ],
+            "matches": [
+                "http://*/*",
+                "https://*/*",
+                "ftp://*/*"
+            ],
+            "run_at": "document_start",
+            "all_frames":true
+        }
+    ]
+}

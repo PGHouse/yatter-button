@@ -1,0 +1,4 @@
+<?php
+define('TOMORROW_TARGET_SCALE_FACTOR', 0.1);
+define('TOMORROW_TARGET_BORDERLINE', 10);
+
