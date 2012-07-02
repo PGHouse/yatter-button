@@ -4,5 +4,8 @@
 # database.php
 /app/Config/database.php
 
+# core.php
+/app/Config/core.php
+
 # console実行時のcache
 /lib/Cake/Console/Templates/skel/tmp/cache/*
