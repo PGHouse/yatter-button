@@ -264,6 +264,24 @@ h4 {
     line-height : 40px;
 }
 
+.header-elem {
+    font-size   : 16px;
+    text-align  : center;
+    width       : 500px;
+    border      : solid 1px #80FF80;
+    padding     : 10px 0;
+    line-height : 40px;
+}
+
+.header-elem a {
+    color : #FF6600;
+}
+
+.header-elem a:hover {
+    background : #FF6600;
+    color : #FFF;
+}
+
 .clearfix:after {
     content    : " ";  /* 新しい要素を作る */
     display    : block;  /* ブロックレベル要素に */
