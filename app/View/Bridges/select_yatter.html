@@ -2,7 +2,7 @@
 <div class="replacement hide"><?= $totalCount ?></div>
     <? foreach ($yatters as $yatter) { ?>
 <div class="yatter-line">
-    <?= !empty($yatter['User']) ? h($yatter['User']['username']) : 'No Name'; ?>
+    <?= !empty($yatter['User']) ? h($yatter['User']['username']) : '名無しさん'; ?>
     <?= h($yatter['Yatter']['comment']) ?>
 </div>
     <? } ?>

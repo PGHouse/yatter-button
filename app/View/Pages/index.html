@@ -80,6 +80,14 @@ $(function() {
 </div>
 <div id="yatter-window" class="yatter-window">
     <div class="replacement"></div>
+<? if (!empty($yatters)) { ?>
+    <? foreach ($yatters as $yatter) { ?>
+    <div class="yatter-line">
+    <?= !empty($yatter['User']) ? h($yatter['User']['username']) : '名無しさん'; ?>
+    <?= h($yatter['Yatter']['comment']) ?>
+    </div>
+    <? } ?>
+<? } ?>
 </div>
 <? if (empty($loginUser)) { ?>
 <div class="submit-orange center">

@@ -16,6 +16,10 @@ Class PagesController extends AppController
      */
     public function index()
     {
+        $yatters = $this->Yatter->find('all', array(
+            'limit' => 10,
+            'order' => array('id' => 'DESC')
+        ));
         $todayYatterCount = $this->Yatter->find('count', array(
             'conditions' => array(
                 'created >=' => date('Y-m-d 00:00:00'),
@@ -24,7 +28,7 @@ Class PagesController extends AppController
         ));
         $yatterSum = $this->YatterSum->findByDate(YESTERDAY_DATE);
 
-        $this->set(compact('todayYatterCount', 'yatterSum'));
+        $this->set(compact('yatters', 'todayYatterCount', 'yatterSum'));
         $this->set('title_for_layout', TITLE);
         $this->set('title_for_page', TITLE);
     }
