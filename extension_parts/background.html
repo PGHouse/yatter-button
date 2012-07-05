@@ -5,7 +5,7 @@
 <script>
 chrome.self.onConnect.addListener(function(port){
 
-    port.onMessage.addListener(function(){
+    port.onMessage.addListener(function(comment){
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "http://yatter-button.masuihiroki.com/bridge/add_yatter", true);
         xhr.setRequestHeader("Content-Type" , "application/x-www-form-urlencoded");
@@ -14,7 +14,7 @@ chrome.self.onConnect.addListener(function(port){
                 port.postMessage();
             }
         }
-        xhr.send();
+        xhr.send(comment);
     });
 });
 </script>
