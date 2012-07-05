@@ -10,22 +10,17 @@ class BridgesController extends AppController
     }
 
    /**
-    * ヤッター!登録(Ajax)
+    * ヤッター登録
     *
     * @access public
     */
     public function addYatter()
     {
-// TODO Ajax判定(もしくはURL直叩き)を入れてエラー処理を通したい
-//        if (!$this->RequestHandler->isAjax()) {
-//            $this->log('Ajax以外のアクセスがありました。', 'warn');
-//            $this->redirect('/error');
-//        }
-
         if ($this->request->is('post')) {
             $this->Yatter->create();
             $data = array('Yatter' => array(
-                'point' => Yatter::POINT_1
+                'point' => Yatter::POINT_1,
+                'comment' => $this->request->data['comment']
             ));
 
             if (!$this->Yatter->save($data)) {
@@ -53,7 +48,6 @@ class BridgesController extends AppController
                 'limit' => AJAX_SELECT_LIMIT,
                 'conditions' => array(
                     'created >=' => $this->request->data['nowTime']
-//'created >=' => '2012-06-30 20:00:00'
                 )
             ));
             $totalCount = count($yatters);

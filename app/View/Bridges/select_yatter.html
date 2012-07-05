@@ -1,7 +1,10 @@
 <? if (!empty($yatters)) { ?>
 <div class="replacement hide"><?= $totalCount ?></div>
     <? foreach ($yatters as $yatter) { ?>
-<div class="yatter-line">hogehoge</div>
+<div class="yatter-line">
+    <?= !empty($yatter['User']) ? h($yatter['User']['username']) : 'No Name'; ?>
+    <?= h($yatter['Yatter']['comment']) ?>
+</div>
     <? } ?>
 <? } else { ?>
 <? /*
